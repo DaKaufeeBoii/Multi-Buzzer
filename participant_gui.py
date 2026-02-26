@@ -92,6 +92,12 @@ class ParticipantGUI(ctk.CTkFrame):
         self.status_label = ctk.CTkLabel(self, text="Ready!", font=ctk.CTkFont(size=20))
         self.status_label.pack(pady=10)
 
+        # Hint label
+        ctk.CTkLabel(self, text="Tip: Press SPACE to buzz", font=ctk.CTkFont(size=12), text_color="gray").pack()
+
+        # Bind spacebar to buzz
+        self.winfo_toplevel().bind("<space>", lambda e: self._buzz())
+
         # Leave Button
         leave_btn = ctk.CTkButton(self, text="Leave Game", 
                                  fg_color="transparent", border_width=1,
@@ -131,6 +137,11 @@ class ParticipantGUI(ctk.CTkFrame):
             widget.destroy()
 
     def _on_back(self):
+        # Remove spacebar binding when leaving
+        try:
+            self.winfo_toplevel().unbind("<space>")
+        except Exception:
+            pass
         if self.client:
             self.client.disconnect()
             self.client = None
