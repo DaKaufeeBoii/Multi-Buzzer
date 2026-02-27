@@ -8,10 +8,16 @@ class BuzzerApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("AI-CLUB Buzzer")
-        self.geometry("800x600")
-        ctk.set_appearance_mode("Dark")
-        ctk.set_default_color_theme("blue")
+        self.title("AI-CLUB Game Show Buzzer")
+        self.geometry("900x650")
+        
+        # Base Game Show Colors
+        self.bg_color = "#0B0B2A" # Deep Navy
+        self.panel_color = "#16163A" # Lighter Navy/Purple
+        self.accent_gold = "#FFD700" # Classic Gold
+        self.accent_gold_hover = "#FFC000" # Bright Yellow/Gold
+        
+        self.configure(fg_color=self.bg_color)
 
         self.current_frame = None
         self.show_home_menu()
@@ -19,41 +25,58 @@ class BuzzerApp(ctk.CTk):
     def show_home_menu(self):
         self.clear_frame()
         
-        self.current_frame = ctk.CTkFrame(self, corner_radius=15)
-        self.current_frame.pack(pady=50, padx=50, fill="both", expand=True)
+        self.current_frame = ctk.CTkFrame(self, corner_radius=20, fg_color=self.panel_color, 
+                                          border_width=2, border_color=self.accent_gold)
+        self.current_frame.pack(pady=60, padx=60, fill="both", expand=True)
 
-        title_label = ctk.CTkLabel(self.current_frame, text="AI-CLUB Buzzer", font=ctk.CTkFont(size=40, weight="bold"))
-        title_label.pack(pady=(50, 20))
+        # Main Title (Glowing/Gold look)
+        title_label = ctk.CTkLabel(self.current_frame, text="AI-CLUB BUZZER", 
+                                   font=ctk.CTkFont(family="Impact", size=60, weight="bold"), 
+                                   text_color=self.accent_gold)
+        title_label.pack(pady=(40, 10))
 
-        subtitle_label = ctk.CTkLabel(self.current_frame, text="Select your mode", font=ctk.CTkFont(size=20))
-        subtitle_label.pack(pady=10)
+        subtitle_label = ctk.CTkLabel(self.current_frame, text="THE ULTIMATE GAME SHOW EXPERIENCE", 
+                                      font=ctk.CTkFont(size=18, weight="bold"), 
+                                      text_color="white")
+        subtitle_label.pack(pady=(0, 30))
 
         button_frame = ctk.CTkFrame(self.current_frame, fg_color="transparent")
-        button_frame.pack(pady=50)
+        button_frame.pack(pady=40)
 
-        host_button = ctk.CTkButton(button_frame, text="Join as Host", 
+        host_button = ctk.CTkButton(button_frame, text="JOIN AS HOST", 
                                    command=self.join_as_host,
-                                   width=200, height=50,
-                                   font=ctk.CTkFont(size=18, weight="bold"))
+                                   width=250, height=60,
+                                   fg_color=self.bg_color,
+                                   hover_color=self.panel_color,
+                                   border_width=2, border_color=self.accent_gold,
+                                   text_color=self.accent_gold,
+                                   font=ctk.CTkFont(size=20, weight="bold"))
         host_button.pack(side="left", padx=20)
 
-        participant_button = ctk.CTkButton(button_frame, text="Join as Participant", 
+        participant_button = ctk.CTkButton(button_frame, text="JOIN AS PARTICIPANT", 
                                           command=self.join_as_participant,
-                                          width=200, height=50,
-                                          font=ctk.CTkFont(size=18, weight="bold"))
+                                          width=250, height=60,
+                                          fg_color=self.accent_gold,
+                                          hover_color=self.accent_gold_hover,
+                                          text_color=self.bg_color,
+                                          font=ctk.CTkFont(size=20, weight="bold"))
         participant_button.pack(side="left", padx=20)
 
         # Volume Control
         volume_frame = ctk.CTkFrame(self.current_frame, fg_color="transparent")
-        volume_frame.pack(pady=30)
+        volume_frame.pack(pady=20)
         
-        ctk.CTkLabel(volume_frame, text="Global Volume", font=ctk.CTkFont(size=14)).pack()
+        ctk.CTkLabel(volume_frame, text="GLOBAL VOLUME", font=ctk.CTkFont(size=12, weight="bold"), text_color="white").pack()
         self.volume_slider = ctk.CTkSlider(volume_frame, from_=0, to=1, 
+                                          button_color=self.accent_gold, button_hover_color=self.accent_gold_hover,
+                                          progress_color=self.accent_gold,
                                           command=self._update_volume)
         self.volume_slider.set(0.5)
-        self.volume_slider.pack(pady=10)
+        self.volume_slider.pack(pady=5)
 
-        info_label = ctk.CTkLabel(self.current_frame, text=f"Local IP: {self.get_local_ip()}", font=ctk.CTkFont(size=12))
+        info_label = ctk.CTkLabel(self.current_frame, text=f"HOST IP: {self.get_local_ip()}", 
+                                  font=ctk.CTkFont(size=14, weight="bold"), 
+                                  text_color="gray60")
         info_label.pack(side="bottom", pady=20)
 
     def _update_volume(self, value):
