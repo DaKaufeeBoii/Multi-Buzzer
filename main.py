@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import sys
 import socket
+import webbrowser
 from host_gui import HostGUI
 from participant_gui import ParticipantGUI
 
@@ -111,17 +112,20 @@ class BuzzerApp(ctk.CTk):
                              font=ctk.CTkFont(size=18, weight="bold"), text_color="white")
         plug1.pack(pady=(5, 10))
         
-        plug2 = ctk.CTkLabel(credits_window, text="Instagram: @4002_saitarun", 
-                             font=ctk.CTkFont(size=16), text_color="gray80")
+        plug2 = ctk.CTkLabel(credits_window, text="Instagram", 
+                             font=ctk.CTkFont(size=16, underline=True), text_color="#4DA6FF", cursor="hand2")
         plug2.pack(pady=5)
+        plug2.bind("<Button-1>", lambda e: webbrowser.open_new("https://instagram.com/4002_saitarun"))
 
-        plug3 = ctk.CTkLabel(credits_window, text="GitHub: https://github.com/DaKaufeeBoii", 
-                             font=ctk.CTkFont(size=16), text_color="gray80")
+        plug3 = ctk.CTkLabel(credits_window, text="GitHub", 
+                             font=ctk.CTkFont(size=16, underline=True), text_color="#4DA6FF", cursor="hand2")
         plug3.pack(pady=5)
+        plug3.bind("<Button-1>", lambda e: webbrowser.open_new("https://github.com/DaKaufeeBoii"))
         
-        plug4 = ctk.CTkLabel(credits_window, text="itch.io: https://dakaufeeboii.itch.io/", 
-                             font=ctk.CTkFont(size=16), text_color="gray80")
+        plug4 = ctk.CTkLabel(credits_window, text="LinkedIn", 
+                             font=ctk.CTkFont(size=16, underline=True), text_color="#4DA6FF", cursor="hand2")
         plug4.pack(pady=5)
+        plug4.bind("<Button-1>", lambda e: webbrowser.open_new("https://www.linkedin.com/in/sai-tarun-reddy-velagala-24135229b/"))
         
         close_btn = ctk.CTkButton(credits_window, text="CLOSE", 
                                   command=credits_window.destroy,
