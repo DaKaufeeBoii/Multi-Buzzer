@@ -8,7 +8,7 @@ class BuzzerApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("AI-CLUB Game Show Buzzer")
+        self.title("Multi-Buzzer")
         self.geometry("900x650")
         
         # Base Game Show Colors
@@ -30,7 +30,7 @@ class BuzzerApp(ctk.CTk):
         self.current_frame.pack(pady=60, padx=60, fill="both", expand=True)
 
         # Main Title (Glowing/Gold look)
-        title_label = ctk.CTkLabel(self.current_frame, text="AI-CLUB BUZZER", 
+        title_label = ctk.CTkLabel(self.current_frame, text="Multi-Buzzer", 
                                    font=ctk.CTkFont(family="Impact", size=60, weight="bold"), 
                                    text_color=self.accent_gold)
         title_label.pack(pady=(40, 10))
@@ -74,10 +74,64 @@ class BuzzerApp(ctk.CTk):
         self.volume_slider.set(0.5)
         self.volume_slider.pack(pady=5)
 
+        credits_button = ctk.CTkButton(self.current_frame, text="CREDITS", 
+                                       command=self.show_credits,
+                                       width=100, height=30,
+                                       fg_color="transparent",
+                                       hover_color=self.panel_color,
+                                       border_width=1, border_color=self.accent_gold,
+                                       text_color=self.accent_gold,
+                                       font=ctk.CTkFont(size=14, weight="bold"))
+        credits_button.pack(side="bottom", pady=(0, 20))
+
         info_label = ctk.CTkLabel(self.current_frame, text=f"HOST IP: {self.get_local_ip()}", 
                                   font=ctk.CTkFont(size=14, weight="bold"), 
                                   text_color="gray60")
-        info_label.pack(side="bottom", pady=20)
+        info_label.pack(side="bottom", pady=(20, 10))
+
+    def show_credits(self):
+        credits_window = ctk.CTkToplevel(self)
+        credits_window.title("Credits")
+        credits_window.geometry("400x350")
+        credits_window.configure(fg_color=self.bg_color)
+        credits_window.attributes("-topmost", True)
+        
+        # Center the window relative to main app
+        credits_window.update_idletasks()
+        x = self.winfo_x() + (self.winfo_width() // 2) - (400 // 2)
+        y = self.winfo_y() + (self.winfo_height() // 2) - (350 // 2)
+        credits_window.geometry(f"+{x}+{y}")
+        
+        title = ctk.CTkLabel(credits_window, text="CREDITS", 
+                             font=ctk.CTkFont(family="Impact", size=30, weight="bold"), 
+                             text_color=self.accent_gold)
+        title.pack(pady=(30, 20))
+
+        plug1 = ctk.CTkLabel(credits_window, text="Created by: DaKaufeeBoii", 
+                             font=ctk.CTkFont(size=18, weight="bold"), text_color="white")
+        plug1.pack(pady=(5, 10))
+        
+        plug2 = ctk.CTkLabel(credits_window, text="Instagram: @4002_saitarun", 
+                             font=ctk.CTkFont(size=16), text_color="gray80")
+        plug2.pack(pady=5)
+
+        plug3 = ctk.CTkLabel(credits_window, text="GitHub: https://github.com/DaKaufeeBoii", 
+                             font=ctk.CTkFont(size=16), text_color="gray80")
+        plug3.pack(pady=5)
+        
+        plug4 = ctk.CTkLabel(credits_window, text="itch.io: https://dakaufeeboii.itch.io/", 
+                             font=ctk.CTkFont(size=16), text_color="gray80")
+        plug4.pack(pady=5)
+        
+        close_btn = ctk.CTkButton(credits_window, text="CLOSE", 
+                                  command=credits_window.destroy,
+                                  width=120, height=35,
+                                  fg_color=self.bg_color,
+                                  hover_color=self.panel_color,
+                                  border_width=2, border_color=self.accent_gold,
+                                  text_color=self.accent_gold,
+                                  font=ctk.CTkFont(size=14, weight="bold"))
+        close_btn.pack(pady=(30, 10))
 
     def _update_volume(self, value):
         from audio_manager import audio_manager

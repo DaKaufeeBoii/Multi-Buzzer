@@ -25,7 +25,7 @@ def build_app():
         "pyinstaller",
         "--noconsole",
         "--onefile",
-        "--name=AI-CLUB_Buzzer",
+        "--name=Multi-Buzzer",
         f"--add-data=assets;assets",
         f"--add-data={ctk_path};customtkinter",
         main_script
